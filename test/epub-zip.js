@@ -1,21 +1,19 @@
 "use strict";
 
-var fs = require("fs");
-var path = require("path");
-var assert = require("chai").assert;
-var JSZip = require("jszip");
-var epubZip = require("../index");
+const path = require("path");
+const assert = require("chai").assert;
+const JSZip = require("jszip");
+const epubZip = require("../index");
 
-var inputDir = path.join(__dirname , "fixtures");
-var targetDir = path.join(__dirname , "dist");
+const inputDir = path.join(__dirname , "fixtures");
 
 describe("epub-zip", function() {
 
   describe("normal case", function () {
 
-    var zip = new JSZip();
-    var content = epubZip( path.join(inputDir, "pub00") );
-    var actual = zip.load(content);
+    const zip = new JSZip();
+    const content = epubZip( path.join(inputDir, "pub00") );
+    const actual = zip.load(content);
 
     it ("should have an uncompressed mimetype in the archive.", function (done) {
       assert.propertyVal(actual.files.mimetype, "name", "mimetype");
@@ -65,17 +63,17 @@ describe("epub-zip", function() {
   });
 
   it ("should have a mimetype in the archive even if mimetype is missing in the source directory.", function (done) {
-    var zip = new JSZip();
-    var content = epubZip( path.join(inputDir, "pub02") );
-    var actual = zip.load(content);
+    const zip = new JSZip();
+    const content = epubZip( path.join(inputDir, "pub02") );
+    const actual = zip.load(content);
     assert.propertyVal(actual.files.mimetype, "name", "mimetype");
     done();
   });
 
   describe("ignore files", function () {
-    var zip = new JSZip();
-    var content = epubZip( path.join(inputDir, "pub03") );
-    var actual = zip.load(content);
+    const zip = new JSZip();
+    const content = epubZip( path.join(inputDir, "pub03") );
+    const actual = zip.load(content);
 
     it ("should not have a .DS_Store in the archive.", function (done) {
       assert.notProperty(actual.files, ".DS_Store");
