@@ -7,6 +7,24 @@ const epubZip = require("../index");
 
 const inputDir = path.join(__dirname , "fixtures");
 
+let testFiles = {
+  container: "META-INF/container.xml",
+  opf: "item/standard.opf",
+  image: "item/image/cover.jpg",
+  css: "item/style/book-style.css",
+  xhtml: "item/xhtml/p-001.xhtml"
+}
+
+if (process.platform === "win32") {
+  testFiles = {
+    container: "META-INF\\container.xml",
+    opf: "item\\standard.opf",
+    image: "item\\image\\cover.jpg",
+    css: "item\\style\\book-style.css",
+    xhtml: "item\\xhtml\\p-001.xhtml"
+  }
+}
+
 describe("epub-zip", function() {
 
   describe("normal case", function () {
@@ -22,27 +40,27 @@ describe("epub-zip", function() {
     });
 
     it ("should have container.xml in the archive.", function (done) {
-      assert.propertyVal(actual.files["META-INF/container.xml"], "name", "META-INF/container.xml");
+      assert.propertyVal(actual.files[testFiles.container], "name", testFiles.container);
       done();
     });
 
     it ("should have an opf file in the archive.", function (done) {
-      assert.propertyVal(actual.files["item/standard.opf"], "name", "item/standard.opf");
+      assert.propertyVal(actual.files[testFiles.opf], "name", testFiles.opf);
       done();
     });
 
     it ("should have an image file in the archive.", function (done) {
-      assert.propertyVal(actual.files["item/image/cover.jpg"], "name", "item/image/cover.jpg");
+      assert.propertyVal(actual.files[testFiles.image], "name", testFiles.image);
       done();
     });
 
     it ("should have a css file in the archive.", function (done) {
-      assert.propertyVal(actual.files["item/style/book-style.css"], "name", "item/style/book-style.css");
+      assert.propertyVal(actual.files[testFiles.css], "name", testFiles.css);
       done();
     });
 
     it ("should have an xhtml file in the archive.", function (done) {
-      assert.propertyVal(actual.files["item/xhtml/p-001.xhtml"], "name", "item/xhtml/p-001.xhtml");
+      assert.propertyVal(actual.files[testFiles.xhtml], "name", testFiles.xhtml);
       done();
     });
 
